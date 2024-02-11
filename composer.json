@@ -1,0 +1,52 @@
+{
+    "name": "ildaviz/filament-language-tab",
+    "description": "A Laravel package to add a language tab to the Filament admin panel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Galet",
+            "email": "davidgalet@gmail.com"
+        }
+    ],
+    "require": {
+        "filament/filament": "^3.0",
+        "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-translatable": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "FilamentLanguageTab\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FilamentLanguageTab\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FilamentLanguageTab\\FilamentLanguageTabServiceProvider"
+            ],
+            "aliases": {
+                "FormTabTranslatable": "FilamentLanguageTab\\Facades\\FormTabTranslatable"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "format": "vendor/bin/pint"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "spatie/laravel-ray": "^1.33",
+        "pestphp/pest": "^2.24",
+        "orchestra/testbench": "^8.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

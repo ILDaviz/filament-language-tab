@@ -1,5 +1,5 @@
 ## Filament Language Tab
-This package provides a language tab for the Filament admin panel. The tab allows users to manage the languages of the application and their translations.
+Important Note: In Development, Not Ready for Production. This package provides a language tab for the Filament admin panel. The tab allows users to manage the languages of the application and their translations.
 
 ### Description
 The Filament Language Tab package provides a tab for managing the languages of the application and their translations. It is designed to be used with the Filament admin panel and is intended to be integrated into Laravel applications.

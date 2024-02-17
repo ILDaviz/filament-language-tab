@@ -64,12 +64,10 @@ trait UseTranslatablePage
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $model = $this->getRecord();
-
         $data = LanguageTab::init()
             ->setTranslatableLocales($this->updateTranslatableLocales())
             ->setTranslatableAttributes($this->updateTranslatableAttributes())
-            ->beforeSave($this->getRecord(), $data);
+            ->beforeSave($data);
 
         return parent::mutateFormDataBeforeSave($data);
     }

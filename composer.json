@@ -42,7 +42,8 @@
         "laravel/pint": "^1.0",
         "spatie/laravel-ray": "^1.33",
         "pestphp/pest": "^2.24",
-        "orchestra/testbench": "^8.0"
+        "orchestra/testbench": "^8.0",
+        "mockery/mockery": "^1.6"
     },
     "config": {
         "allow-plugins": {

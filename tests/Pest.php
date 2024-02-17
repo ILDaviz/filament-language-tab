@@ -1,5 +1,6 @@
 <?php
 
-use Lunargraphql\Tests\TestCase;
+use FilamentLanguageTab\Tests\TestCase;
 
-uses(TestCase::class)->in('Feature', 'Unit');
+uses(TestCase::class)
+    ->in('Unit');

@@ -87,9 +87,7 @@ class FilamentLanguageTab
             throw new Exception("Model [{$modelClass}] must have [\$translatable] properties defined.");
         }
 
-        $data = $this->getAttributeFiltered($data);
-
-        return $data;
+        return $this->getAttributeFiltered($data);
     }
 
     public function beforeFill(Model $model, $data): array
@@ -104,7 +102,6 @@ class FilamentLanguageTab
             throw new Exception("Model [{$model}] must have [\$translatable] properties defined.");
         }
 
-
         collect($this->getLangMapTranslatable())->each(function ($mapAttribute) use (&$data, $model) {
             $lang = $mapAttribute['lang'];
             $attribute = $mapAttribute['attribute'];
@@ -118,9 +115,7 @@ class FilamentLanguageTab
 
     public function beforeSave(array $data): array
     {
-        $data = $this->getAttributeFiltered($data);
-
-        return $data;
+        return $this->getAttributeFiltered($data);
     }
 
     /**
@@ -138,6 +133,7 @@ class FilamentLanguageTab
 
             unset($data[$langAttribute]);
         });
+
         return $data;
     }
 

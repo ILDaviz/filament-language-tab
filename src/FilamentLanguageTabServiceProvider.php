@@ -22,7 +22,7 @@ class FilamentLanguageTabServiceProvider extends PackageServiceProvider
         $package
             ->name('filament-language-tab')
             ->hasConfigFile([
-                'config',
+                'filament-language-tab',
             ]);
     }
 }

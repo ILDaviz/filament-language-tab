@@ -3,7 +3,7 @@ Administers multi-language content in tabs. Each tab is divided by language. You
 An easy way to manage multi-language sites with Filament!
 
 ### Preview
-![preview](https://github.com/ILDaviz/filament-language-tab/raw/master/preview.gif)
+![preview](https://github.com/ILDaviz/filament-language-tab/blob/main/preview.gif?raw=true)
 
 ### Installation
 ``` bash

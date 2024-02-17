@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static string makeName(string $name, string $locale)
  * @method static init()
- * @method static getTranslatableAttributes(Model $model)
+ * @method static getTranslatableAttributes(string $modelClass)
  * @method static array getLocales()
  * @method static setTranslatableLocales(array $locales = [])
  * @method static setTranslatableAttributes(array $translatableAttributes = [])

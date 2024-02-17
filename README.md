@@ -1,8 +1,6 @@
 ## Filament Language Tab
-Important Note: In Development, Not Ready for Production. This package provides a language tab for the Filament admin panel. The tab allows users to manage the languages of the application and their translations.
-
-### Description
-The Filament Language Tab package provides a tab for managing the languages of the application and their translations. It is designed to be used with the Filament admin panel and is intended to be integrated into Laravel applications.
+Administers multi-language content in tabs. Each tab is divided by language. You can go and customize the label or tab content to your liking. In addition, there is a Facade to also use this system in modals or wherever you like.
+An easy way to manage multi-language sites with Filament!
 
 ### Installation
 ``` bash
@@ -14,7 +12,7 @@ Publish the configuration:
 php artisan vendor:publish
 select: Tag: filament-language-tab-config
 ```
-### Set Spatie Translatable
+### Set Spatie Translatable on models
 
 ```php
 namespace App\Models;
@@ -32,6 +30,7 @@ class Posts extends Model
         'content',
         'slug',
         'images',
+        ...
     ];
     
     ...
@@ -66,7 +65,7 @@ class EditPost ...
     ...
 ```
 
-For change the locales or translatable attributes of the specific page add this methods
+Add these methods to change the locales or translatable attributes for a given page
 
 ```php
 public function setTranslatableLocales(): array
@@ -99,28 +98,32 @@ use FilamentLanguageTab\Facades\LanguageTab;
 
 TabsTranslatable::make('translations')
     ->makeForm(
+        // Use the "lang" props to have the language cycled
+        // You can also use the other Filament closures.
         getLabelTab: function ($lang) {
             return 'Translations ' . $lang;
         },
+        // Use the "lang" props to have the language cycled
+        // You can also use the other Filament closures.
         getFormTranslatableContent: function ($lang) {
             return [
                 Forms\Components\Group::make([
                     Forms\Components\TextInput::make(LanguageTab::makeName('title', $lang))
-                        ->label('Title')
-                        ->placeholder('Title')
+                        ->label(__(LanguageTab::makeName('title', $lang)))
+                        ->placeholder(__(LanguageTab::makeName('placeholder', $lang)))
                         ->required(),
                     Forms\Components\Textarea::make(LanguageTab::makeName('content', $lang))
-                        ->label('Content')
-                        ->placeholder('Content')
+                        ->label(__(LanguageTab::makeName('content', $lang)))
+                        ->placeholder(__(LanguageTab::makeName('content', $lang)))
                         ->required(),
                     Forms\Components\TextInput::make(LanguageTab::makeName('slug', $lang))
-                        ->label('Slug')
-                        ->placeholder('Slug')
+                        ->label(__(LanguageTab::makeName('slug', $lang)))
+                        ->placeholder(__(LanguageTab::makeName('slug', $lang)))
                         ->required(),
                     Forms\Components\FileUpload::make(LanguageTab::makeName('images', $lang))
                         ->multiple()
-                        ->label('Images')
-                        ->placeholder('Images')
+                        ->label(__(LanguageTab::makeName('images', $lang)))
+                        ->placeholder(__(LanguageTab::makeName('images', $lang)))
                         ->required(),
                 ])
             ];
@@ -131,23 +134,34 @@ TabsTranslatable::make('translations')
 
 TabsTranslatable is a wrapper for the Tabs component. It is used to create a tab for each language and to manage the translations of the fields.
 
+To add custom languages.
 ```php
 ->languages(['en', 'es', 'fr'])
 ```
-For add custom languages.
+For create the form for each language.
 
 ```php
 ->makeForm(
-    // For change the label of the tab
+    // Use the "lang" props to have the language cycled
+    // You can also use the other Filament closures.
     getLabelTab: function (string $lang) {}
-    // For add the fields of the form for each language
+    // Use the "lang" props to have the language cycled
+    // You can also use the other Filament closures.
     getFormTranslatableContent: function (string $lang) {}
 )
 ```
 Add correct label for fields.
 ```php
-LanguageTab::makeName('name of field', $lang)
+LanguageTab::makeName('{name of field}', $lang)
+
+//example:
+LanguageTab::makeName('title', $lang)
+
+//result:
+'title-en'
+
 ```
+
 ### Usage on modals or other components
 
 ```php
@@ -157,11 +171,11 @@ use FilamentLanguageTab\Facades\LanguageTab;
 
 // Initialize the LanguageTab facade.
 init()
-// For change locales
+// For change locales (optional)
 setTranslatableLocales(array $locales = [])
-// Set the translatable attributes from the model.
-getTranslatableAttributes(Model $model)
-// Set the translatable attributes.
+// Set the translatable attributes from the specific model.
+getTranslatableAttributes(string $modelClass)
+// Set the translatable attributes. (optional)
 setTranslatableAttributes(array $translatableAttributes = [])
 // Use before create event
 beforeCreate(string $modelClass, array $data)
@@ -173,7 +187,6 @@ beforeSave(Model $model, array $data)
 array getLocales()
 // Make the name of the field for the form.
 string makeName(string $name, string $locale)
-
 ```
 
 ### Issue Reporting

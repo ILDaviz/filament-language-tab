@@ -13,7 +13,7 @@ class TabsTranslatable extends Component
 {
     use HasLanguage;
 
-    protected $form = [];
+    protected string $locale;
 
     public static function make(?string $name = null): static
     {
@@ -45,48 +45,48 @@ class TabsTranslatable extends Component
     ): Tabs {
         $tabs = [];
 
-        $getLabelTab = $this->getLabelTab($getLabelTab);
-
-        $getFormTranslatableContent = $this->getClosureContent($getFormTranslatableContent);
-
         foreach ($this->getLanguages() as $lang) {
+
+            $this->setLocale($lang);
+
             $tabs[] = Tab::make('tab-'.$lang)
-                ->label($getLabelTab($lang))
-                ->schema($getFormTranslatableContent($lang));
+                ->label($this->evaluate($getLabelTab))
+                ->schema($this->evaluate($getFormTranslatableContent));
         }
 
         return Tabs::make('translations')
             ->tabs($tabs);
     }
 
-
-    /**
-     * Get the label for each tab.
-     */
-    protected function getLabelTab(Closure | null $getLabelTab): Closure
+    protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
     {
-        if (is_null($getLabelTab)) {
-            $getLabelTab = function ($lang) {
-                return 'Tab '.$lang;
-            };
-        }
-
-        return $getLabelTab;
+        return match ($parameterName) {
+            'context', 'operation' => [$this->getContainer()->getOperation()],
+            'get' => [$this->getGetCallback()],
+            'livewire' => [$this->getLivewire()],
+            'model' => [$this->getModel()],
+            'record' => [$this->getRecord()],
+            'set' => [$this->getSetCallback()],
+            'state' => [$this->getState()],
+            'lang' => [$this->getLocale()],
+            default => parent::resolveDefaultClosureDependencyForEvaluationByName($parameterName),
+        };
     }
 
     /**
-     * Get the content for each tab.
+     * @return mixed
      */
-    protected function getClosureContent(Closure | null $getFormTranslatableContext): Closure
+    protected function getLocale(): string
     {
-        if (is_null($getFormTranslatableContext)) {
-            $getFormTranslatableContext = function ($lang) {
-                return [
-                    //
-                ];
-            };
-        }
+        return $this->locale;
+    }
 
-        return $getFormTranslatableContext;
+    /**
+     * @param mixed $lang
+     * @return void
+     */
+    protected function setLocale(string $lang): void
+    {
+        $this->locale = $lang;
     }
 }

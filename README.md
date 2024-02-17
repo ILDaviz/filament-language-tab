@@ -2,6 +2,9 @@
 Administers multi-language content in tabs. Each tab is divided by language. You can go and customize the label or tab content to your liking. In addition, there is a Facade to also use this system in modals or wherever you like.
 An easy way to manage multi-language sites with Filament!
 
+### Preview
+![preview](https://github.com/ILDaviz/filament-language-tab/raw/master/preview.gif)
+
 ### Installation
 ``` bash
 composer require ildaviz/filament-language-tab:dev-main
